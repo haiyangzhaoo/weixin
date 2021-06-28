@@ -1,0 +1,28 @@
+.container {
+  padding: 20px;
+  .header {
+    display: flex;
+    img, taro-image-core {
+      width: 60px;
+      height: 60px;
+      align-self: center;
+    }
+    .user-time {
+      display: flex;
+      flex-direction: column;
+      padding-left: 15px;
+    }
+  }
+  .content-big {
+    font-size: 30px;
+  }
+  .footer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom:5px;
+    padding-top:5px;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+}
