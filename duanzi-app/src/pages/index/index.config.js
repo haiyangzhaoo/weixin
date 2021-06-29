@@ -1,3 +1,3 @@
 export default {
-  navigationBarTitleText: '海洋'
+  navigationBarTitleText: '文本'
 }

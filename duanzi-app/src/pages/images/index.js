@@ -32,68 +32,61 @@ class Index extends Component {
 
   getData()
   {
-    // return reqwest({
-    //   url: 'https://api.apiopen.top/getJoke',
-    //   method: 'get',
-    //   data: {
+    // return axios({
+    //   method: 'post',
+    //   url: 'https://api.apiopen.top/getWangYiNews',
+    //   params: {
     //     page: this.state.page,
-    //     type: 'video',
     //     count: 10
     //   }
     // })
-    // 没写return直接没结果
-    return axios.post('https://api.apiopen.top/getImages', {
-      params: {
-        page: this.state.page,
-        count: 20
-      }
+    return Taro.request({
+        url: 'https://api.apiopen.top/getWangYiNews',
+        method: 'POST',
+        data: {
+          page: this.state.page,
+          count: 10
+        }
     })
-    .then(data => {
-      this.setState({
-        list: this.state.list.concat(data.data.result),
-        page: this.state.page + 1
-      })
-    })
-    .catch(err => {
-      console.error(err.message)
-      Taro.showToast({title: '最后一页了～'})
-      })
   }
 
   async componentDidMount()
   {
     const res = await this.getData()
-    console.log(this.state.list)
+    this.setState({
+      list: this.state.list.concat(res.data.result),
+      page: this.state.page + 1
+    })
   }
 
   async onReachBottom()
   {
       const res = await this.getData()
-      console.log(this.state.list)
+      this.setState({
+        list: this.state.list.concat(res.data.result),
+        page: this.state.page + 1
+      })
+  }
+
+  handleClick(url) {
+    window.location.href = url
+    // Taro.redirectTo({url})
   }
 
   render () {
+    console.log(1111, this.state.list)
+
     return (
       <View className="container">
-       {this.state.list && this.state.list.map((item, index) => {
-         return (
-           <View key={item.id}>
-            <View className="header">
-             <Image src={Awater} style={{height:30}} />
-             <View className="user-time">
-               <Text>{item.name}</Text>
-               <Text>{item.passtime}</Text>
-             </View>
+        {this.state.list && this.state.list.map((item, key) => {
+          return (
+            <View className="container-item" key={item.image} onClick={this.handleClick.bind(null, item.path)}>
+              <View className="title">{item.title}</View>
+              <Text className="time">{item.passtime}</Text>
+              <Image className="image" src={item.image}></Image>
             </View>
-            <Image className="content-big" src={item.img} />
-            <View className="footer">
-               <View>评论: {item.comment ?? 0}</View>
-               <View>点咋: {item.up ?? 0}</View>
-               <View>下载: {item.down ?? 0}</View>
-            </View>
-           </View>
-         )
-       })}
+          )
+        })}
       </View>
     )
   }

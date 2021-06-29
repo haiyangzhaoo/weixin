@@ -15,12 +15,12 @@ export default {
         'iconPath': 'assets/images/pic_1.png',
         'selectedIconPath': 'assets/images/pic_0.png',
         pagePath: 'pages/images/index',
-        text: '图片'
+        text: '新闻'
       }, {
         'iconPath': 'assets/images/video_1.png',
         'selectedIconPath': 'assets/images/video_0.png',
         pagePath: 'pages/video/index',
-        text: '视频'
+        text: '诗词'
       }
     ],
     'color': '#000',

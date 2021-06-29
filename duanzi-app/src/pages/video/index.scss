@@ -1,28 +1,47 @@
+.load {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 50%;
+  width: 300px;
+  height: 300px;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: #ccc;
+  font-size: 50px;
+  line-height: 300px;
+  text-align: center;
+  border-radius: 30px;
+  color: #fff;
+}
 .container {
   padding: 20px;
-  .header {
-    display: flex;
-    img, taro-image-core {
-      width: 60px;
-      height: 60px;
-      align-self: center;
+  .container-item {
+    .title {
+      font-size: 60px;
+      font-weight: 700;
     }
-    .user-time {
-      display: flex;
-      flex-direction: column;
-      padding-left: 15px;
+    .user {
+      margin-bottom: 10px;
+      .user-dy, .user-name {
+        font-size: 35px;
+        color: #313131;
+      }
+      .user-dy {
+        margin-right: 20px;
+      }
     }
-  }
-  .content-big {
-    font-size: 30px;
-  }
-  .footer{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding-bottom:5px;
-    padding-top:5px;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 10px;
+    .types {
+      margin-bottom: 10px;
+      .type {
+        padding: 10px;
+        background-color: #ccc;
+        color: #fff;
+        border-radius: 10px;
+        margin-right: 10px;
+      }
+    }
+    .article, .remark, .appreciation {
+      font-size: 28px;
+    }
   }
 }

@@ -37,33 +37,41 @@ class Index extends Component {
 
   getData()
   {
-    // return reqwest({
-    //   url: 'https://api.apiopen.top/getJoke',
-    //   method: 'get',
-    //   data: {
+    // 没写return直接没结果
+    // return axios.get('https://api.apiopen.top/getJoke', {
+    //   params: {
     //     page: this.state.page,
-    //     type: 'video',
-    //     count: 10
+    //     type: 'text',
+    //     count: 20
     //   }
     // })
-    // 没写return直接没结果
-    return axios.get('https://api.apiopen.top/getJoke', {
-      params: {
-        page: this.state.page,
-        type: 'text',
-        count: 20
-      }
+    // .then(data => {
+    //   this.setState({
+    //     list: this.state.list.concat(data.data.result),
+    //     page: this.state.page + 1
+    //   })
+    // })
+    // .catch(err => {
+    //   console.error(err.message)
+    //   Taro.showToast({title: '最后一页了～'})
+    //   })
+    
+    return Taro.request({
+        url: 'https://api.apiopen.top/getJoke',
+        method: 'GET',
+        data: {
+          page: this.state.page,
+          type: 'text',
+          count: 20
+        },
+        success: data => {
+          this.setState({
+              list: this.state.list.concat(data.data.result),
+              page: this.state.page + 1
+            })
+        },
+        error: err => Taro.showToast({title: '最后一页了～'})
     })
-    .then(data => {
-      this.setState({
-        list: this.state.list.concat(data.data.result),
-        page: this.state.page + 1
-      })
-    })
-    .catch(err => {
-      console.error(err.message)
-      Taro.showToast({title: '最后一页了～'})
-      })
   }
 
   async componentDidMount()

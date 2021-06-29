@@ -2,6 +2,7 @@ import { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Button, Text, Image,Video } from '@tarojs/components'
 import axios from 'axios'
+// import reqwest from 'reqwest'
 import Taro from '@tarojs/taro'
 
 import { add, minus, asyncAdd } from '../../actions/counter'
@@ -38,68 +39,81 @@ class Index extends Component {
   getData()
   {
     // return reqwest({
-    //   url: 'https://api.apiopen.top/getJoke',
+    //   url: 'http://poetry.apiopen.top/poetryFull',
     //   method: 'get',
     //   data: {
     //     page: this.state.page,
-    //     type: 'video',
-    //     count: 10
+    //     count: 2
     //   }
     // })
-    // 没写return直接没结果
-    return axios.get('https://api.apiopen.top/getJoke', {
-      params: {
-        page: this.state.page,
-        type: 'video',
-        count: 20
-      }
+    // return axios({
+    //   method: 'get',
+    //   url: 'http://poetry.apiopen.top/poetryFull',
+    //   params: {
+    //     page: this.state.page,
+    //     count: 2
+    //   }
+    // })
+
+    return Taro.request({
+        url: 'http://poetry.apiopen.top/poetryFull',
+        method: 'GET',
+        data: {
+          page: this.state.page,
+          count: 2
+        }
+
     })
-    .then(data => {
-      this.setState({
-        list: this.state.list.concat(data.data.result),
-        page: this.state.page + 1
-      })
-    })
-    .catch(err => {
-      console.error(err.message)
-      Taro.showToast({title: '最后一页了～'})
-      })
   }
 
   async componentDidMount()
   {
     const res = await this.getData()
-    console.log(this.state.list)
+    this.setState({
+      list: this.state.list.concat(res.data.result),
+      page: this.state.page + 1
+    })
   }
 
   async onReachBottom()
   {
       const res = await this.getData()
-      console.log(this.state.list)
+      this.setState({
+        list: this.state.list.concat(res.data.result),
+        page: this.state.page + 1
+      })
   }
 
   render () {
+    console.log(1111, this.state.list)
+
+    if (this.state.list.length == 0) {
+      return <View className="load">加载中...</View>
+    }
+
     return (
       <View className="container">
        {this.state.list && this.state.list.map((item, index) => {
          return (
-           <View key={item.sid}>
-            <View className="header">
-             <Image src={Awater} style={{height:30}} />
-             <View className="user-time">
-               <Text>{item.name}</Text>
-               <Text>{item.passtime}</Text>
-             </View>
+          <View className="container-item" key={`${item.writer}-${item.title}`}>
+            <View className="title">{item.title}</View>
+            <View className="user">
+              <Text className="user-dy">{item.dynasty}</Text>
+              <Text className="user-name">{item.writer}</Text>
             </View>
-            <Video className="content-big"
-              src={item.video}
-            >{item.text}</Video>
-            <View className="footer">
-               <View>评论: {item.comment}</View>
-               <View>点咋: {item.up}</View>
-               <View>下载: {item.down}</View>
+            <View className="types">
+              {item.type && item.type.split(',').map((name, key) => <Text className="type" key={key}>{name}</Text>)}
             </View>
-           </View>
+            <View className="article">
+              {item.content}
+            </View>
+            <View className="remark">
+              {item.remark}
+            </View>
+            <View className="appreciation">
+              {item.appreciation}
+            </View>
+          </View>
          )
        })}
       </View>
