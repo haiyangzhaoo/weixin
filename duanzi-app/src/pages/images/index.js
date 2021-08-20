@@ -69,8 +69,9 @@ class Index extends Component {
   }
 
   handleClick(url) {
-    window.location.href = url
-    // Taro.redirectTo({url})
+    Taro.navigateTo({
+      url: `/pages/detailView/index?url=${url}`
+    })
   }
 
   render () {

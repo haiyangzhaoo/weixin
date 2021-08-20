@@ -93,7 +93,7 @@ class Index extends Component {
          return (
            <View key={item.sid}>
             <View className="header">
-             <Image src={Awater} style={{height:30}} />
+             <Image className="my-avatar"  src={Awater} style={{height:30}} />
              <View className="user-time">
                <Text>{item.name}</Text>
                <Text>{item.passtime}</Text>

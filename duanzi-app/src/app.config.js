@@ -2,23 +2,18 @@ export default {
   pages: [
     'pages/index/index',
     'pages/images/index',
-    'pages/video/index'
+    'pages/video/index',
+    'pages/detailView/index'
   ],
   tabBar: {
     list: [
       {
-        'iconPath': 'assets/images/wb_1.png',
-        'selectedIconPath': 'assets/images/wb_0.png',
         pagePath: 'pages/index/index',
         text: '文本'
       }, {
-        'iconPath': 'assets/images/pic_1.png',
-        'selectedIconPath': 'assets/images/pic_0.png',
         pagePath: 'pages/images/index',
         text: '新闻'
       }, {
-        'iconPath': 'assets/images/video_1.png',
-        'selectedIconPath': 'assets/images/video_0.png',
         pagePath: 'pages/video/index',
         text: '诗词'
       }
